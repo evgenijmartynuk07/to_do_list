@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>
+    TODO List
+    <a href="{% url "to_do_list:task-create" %}" class="btn btn-primary">
+      Add task
+    </a>
+  </h1>
+  {% if object_list %}
+    <ul>
+      {% for task in object_list %}
+        {% if task.is_completed %}
+        <li>
+          <h4>{{ task.content }} <span class="text-success">Done</span></h4>
+          <p>Created: {{ task.created }}</p>
+          <p>Tags:
+            {% for tag in task.tags.all %}
+              {{ tag.name }}
+            {% endfor %}
+          </p>
+        </li>
+        {% else %}
+          <li>
+          <h4>{{ task.content }} <span class="text-danger">Not Done</span></h4>
+          <p>Created: {{ task.created }}</p>
+          <p>Tags:
+            {% for tag in task.tags.all %}
+              {{ tag.name }}
+            {% endfor %}
+          </p>
+        </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>There are no tasks</p>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>
+    Tags List
+    <a href="{% url "to_do_list:tag-create" %}" class="btn btn-primary">
+      Add tag
+    </a>
+{% endblock %}
