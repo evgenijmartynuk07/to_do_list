@@ -3,7 +3,7 @@
 {% block content %}
   <h1>
     TODO List
-    <a href="{% url "to_do_list:task-create" %}" class="btn btn-primary">
+    <a href="{% url "to_do_list:task-create" %}" class="btn btn-primary link-to-page">
       Add task
     </a>
   </h1>
@@ -22,7 +22,11 @@
         </li>
         {% else %}
           <li>
-          <h4>{{ task.content }} <span class="text-danger">Not Done</span></h4>
+          <h4>
+            {{ task.content }}
+            <span class="text-danger">Not Done</span>
+            <span><button class="btn btn-success">Complete</button></span>
+          </h4>
           <p>Created: {{ task.created }}</p>
           <p>Tags:
             {% for tag in task.tags.all %}
