@@ -14,4 +14,3 @@ class Task(models.Model):
     deadline = models.DateField()
     is_completed = models.BooleanField(default=False)
     tags = models.ManyToManyField(Tag, related_name="tasks")
-

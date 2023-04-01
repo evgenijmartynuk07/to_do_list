@@ -3,32 +3,32 @@
 {% block content %}
   <h1>
     TODO List
-    <a href="{% url "to_do_list:task-create" %}" class="btn btn-primary float-right m-2">
+    <a href="{% url "to_do_manager:task-create" %}" class="btn btn-primary float-right m-2">
       Add task
     </a>
   </h1>
   {% if object_list %}
-        {% for task in object_list %}
-          {% if not task.is_completed %}
-          <hr>
-          <h4><strong>
-            {{ task.content }}
-            <span class="text-danger">Not Done</span>
-            <form method="post" action="">
-              {% csrf_token %}
-              <button type="submit" class="btn btn-success float-right m-2" name="id" value="{{ task.id }}">Complete</button>
-            </form>
-          </strong>
-          </h4>
-          <p>Created: {{ task.created }}</p>
-          <p>Tags:
-            {% for tag in task.tags.all %}
-              {{ tag.name }}
-            {% endfor %}
-            <a href="{% url "to_do_list:tag-update" pk=task.id %}">Update</a>
-            <a href="{% url "to_do_list:tag-delete" pk=task.id %}">Delete</a>
-          </p>
-        {% endif %}
+    {% for task in object_list %}
+      {% if not task.is_completed %}
+      <hr>
+      <h4><strong>
+        {{ task.content }}
+        <span class="text-danger">Not Done</span>
+        <form method="post" action="">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-success float-right m-2" name="id" value="{{ task.id }}">Complete</button>
+        </form>
+      </strong>
+      </h4>
+      <p>Created: {{ task.created }}</p>
+      <p>Tags:
+        {% for tag in task.tags.all %}
+          {{ tag.name }}
+        {% endfor %}
+        <a href="{% url "to_do_manager:task-update" pk=task.id %}">Update</a>
+        <a href="{% url "to_do_manager:task-delete" pk=task.id %}">Delete</a>
+      </p>
+    {% endif %}
       {% endfor %}
       {% for task in object_list %}
         {% if task.is_completed %}
@@ -43,8 +43,8 @@
             {% for tag in task.tags.all %}
               {{ tag.name }}
             {% endfor %}
-            <a href="{% url "to_do_list:tag-update" pk=task.id %}">Update</a>
-            <a href="{% url "to_do_list:tag-delete" pk=task.id %}">Delete</a>
+            <a href="{% url "to_do_manager:task-update" pk=task.id %}">Update</a>
+            <a href="{% url "to_do_manager:task-delete" pk=task.id %}">Delete</a>
           </p>
         {% endif %}
          {% endfor %}
