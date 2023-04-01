@@ -1,7 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import generic
-
 from .models import Task, Tag
 
 
@@ -9,6 +8,17 @@ class TaskListView(generic.ListView):
     model = Task
     queryset = Task.objects.prefetch_related("tags")
     ordering = ["-created", "is_completed"]
+
+    def post(self, request, **kwargs):
+        self.object = Task.objects.get(id=self.request.POST.get("id"))
+
+        if self.object.is_completed:
+            self.object.is_completed = 0
+            self.object.save()
+            return redirect("to_do_list:task-list")
+        self.object.is_completed = 1
+        self.object.save()
+        return redirect("to_do_list:task-list")
 
 
 class TaskCreateView(generic.CreateView):
